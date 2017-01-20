@@ -26,7 +26,6 @@ public class Control : MonoBehaviour
             currentSwipe = Vector2.zero;
         }
 
-
     }
 
     Vector2 firstPressPos;
