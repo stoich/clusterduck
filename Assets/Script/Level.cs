@@ -18,6 +18,8 @@ public class Level : MonoBehaviour
         colliders.Add("Right", new GameObject().transform);
         colliders.Add("Left", new GameObject().transform);
 
+        colliders["Left"].gameObject.layer = LayerMask.NameToLayer("Level");
+
         //Generate world space point information for position and scale calculations
         Vector3 cameraPos = Camera.main.transform.position;
         screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f; //Grab the world-space position values of the start and end positions of the screen, then calculate the distance between them and store it as half, since we only need half that value for distance away from the camera to the edge
@@ -26,7 +28,6 @@ public class Level : MonoBehaviour
         foreach (KeyValuePair<string, Transform> valPair in colliders)
         {
             valPair.Value.gameObject.AddComponent<BoxCollider2D>(); //Add our colliders. Remove the "2D", if you would like 3D colliders.
-
 
             var c = valPair.Value.gameObject.GetComponent<BoxCollider2D>(); //Add our colliders. Remove the "2D", if you would like 3D colliders.
             c.sharedMaterial = mat;

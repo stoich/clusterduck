@@ -49,7 +49,7 @@ public class Control : MonoBehaviour
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 
             //normalize the 2d vector
-            currentSwipe.Normalize();
+            currentSwipe = currentSwipe / 50;
 
             //    //swipe upwards
             //    if (currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
