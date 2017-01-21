@@ -24,10 +24,6 @@ public class VisualSonicBoomCue : MonoBehaviour
         {
             var mouseTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mouseTarget, Vector2.zero, 500);
-            //    if (hit)
-            //        return hit.transform.gameObject == sonicBoomObjectName;
-            //    else
-            //        return false;
         }
     }
 
