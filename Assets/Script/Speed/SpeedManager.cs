@@ -6,27 +6,41 @@ public class SpeedManager : MonoBehaviour
 {
 
     private Rigidbody2D b;
-    public float sonicTreshold;
+    public float sonicTreshold, terminalVelocity;
 
-    // Use this for initialization
     void Start()
     {
         b = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
 
-    private float CurrentSpeed()
+    private void LimitSpeed() {
+        
+        if (GetCurrentSpeed() > terminalVelocity) {
+
+            SetCurrentSpeed( terminalVelocity );
+
+        }
+    
+    }
+
+    private float GetCurrentSpeed()
     {
         return b.velocity.magnitude;
     }
 
+    private void SetCurrentSpeed(float newSpeed) {
+
+        b.velocity = b.velocity.normalized * newSpeed;
+    
+    } 
+
     public bool IsSonic()
     {
-        return CurrentSpeed() > sonicTreshold;
+        return GetCurrentSpeed() > sonicTreshold;
     }
 }

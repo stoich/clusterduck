@@ -6,7 +6,8 @@ public class DuckMotion : MonoBehaviour {
 
 	public Rigidbody2D bodyWithSpeed;
 	public GameObject objToRotate, objToBob;
-	float lowerLimit = 6f, upperLimit = 30f, maxRotation = 30f, bobFrequency = 1f, bobDisplacement = 0.05f;
+	float maxRotation = 30f, bobFrequency = 1f, bobDisplacement = 0.05f;
+	public SpeedManager speedManager;
 
 	float bobStage = 0f;
 
@@ -14,8 +15,8 @@ public class DuckMotion : MonoBehaviour {
 
 		float rotation = bodyWithSpeed.velocity.magnitude;
 		
-		rotation -= lowerLimit;
-		rotation /= (upperLimit - lowerLimit);
+		rotation -= speedManager.sonicTreshold;
+		rotation /= ( speedManager.terminalVelocity - speedManager.sonicTreshold);
 		rotation = Mathf.Clamp(rotation, 0f, 1f);
 		rotation = Mathf.Pow(rotation, 0.5f);
 		rotation *= maxRotation;
