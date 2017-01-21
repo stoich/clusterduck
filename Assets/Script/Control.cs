@@ -59,7 +59,11 @@ public class Control : MonoBehaviour
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 
             //normalize the 2d vector
-            currentSwipe = currentSwipe / 50;
+            currentSwipe = currentSwipe / 50; 
+            
+            if (currentSwipe.magnitude > DuckManager.main.terminalVelocity) {
+                currentSwipe = currentSwipe.normalized * DuckManager.main.terminalVelocity;
+            }
 
             GameManager.main.TryStartGame();
         }

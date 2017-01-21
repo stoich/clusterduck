@@ -6,7 +6,6 @@ public class SpeedManager : MonoBehaviour
 {
 
     private Rigidbody2D b;
-    public float sonicTreshold, terminalVelocity;
 
     void Start()
     {
@@ -20,7 +19,7 @@ public class SpeedManager : MonoBehaviour
 
     private void LimitSpeed() {
         
-        if (GetCurrentSpeed() > terminalVelocity) {
+        if (GetCurrentSpeed() > DuckManager.main.terminalVelocity) {
 
             SetCurrentSpeed( terminalVelocity );
 
@@ -41,6 +40,6 @@ public class SpeedManager : MonoBehaviour
 
     public bool IsSonic()
     {
-        return GetCurrentSpeed() > sonicTreshold;
+        return GetCurrentSpeed() > DuckManager.main.sonicTreshold;
     }
 }

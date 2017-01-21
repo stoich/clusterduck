@@ -9,6 +9,8 @@ public class DuckManager : MonoBehaviour
     public GameObject duckPrefab;
     public List<GameObject> duckList;
     public static DuckManager main;
+    public float sonicTreshold = 8f;
+    public float terminalVelocity = 30f;
 
     void Awake()
     {

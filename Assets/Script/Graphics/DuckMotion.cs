@@ -41,8 +41,8 @@ public class DuckMotion : MonoBehaviour {
 
 		float rotation = bodyWithSpeed.velocity.magnitude;
 		
-		rotation -= speedManager.sonicTreshold;
-		rotation /= ( speedManager.terminalVelocity - speedManager.sonicTreshold);
+		rotation -= DuckManager.main.sonicTreshold;
+		rotation /= ( DuckManager.main.terminalVelocity - DuckManager.main.sonicTreshold);
 		rotation = Mathf.Clamp(rotation, 0f, 1f);
 		rotation = Mathf.Pow(rotation, 0.5f);
 		rotation *= maxRotation;
@@ -75,7 +75,7 @@ public class DuckMotion : MonoBehaviour {
 
 	void CheckParticles() {
 		//TODO: Use a better way of checking this
-		if (particlesOn != bodyWithSpeed.velocity.magnitude > speedManager.sonicTreshold) {
+		if (particlesOn != bodyWithSpeed.velocity.magnitude > DuckManager.main.sonicTreshold) {
 			
 			if (particlesOn) {
 			
