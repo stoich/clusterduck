@@ -18,7 +18,17 @@ public class Smash : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.tag == "Obstacle" && speedManager.IsSonic())
-            Destroy(collision.gameObject);
+        if (collision.gameObject.tag == "Obstacle") {
+
+            Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
+
+            if (speedManager.IsSonic()) {
+                Destroy(collision.gameObject);
+                if (obstacle != null)
+                    obstacle.OnBreak();
+            }
+            //else
+                //Destroy the duck
+        }
     }
 }
