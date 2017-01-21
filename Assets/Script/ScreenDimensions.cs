@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScreenDimensions : MonoBehaviour
 {
 
-    private static float HalfSize
+    public static float HeightHalf
     {
         get
         {
@@ -18,7 +18,7 @@ public class ScreenDimensions : MonoBehaviour
     {
         get
         {
-            return -HalfSize;
+            return -HeightHalf;
         }
     }
 
@@ -26,7 +26,15 @@ public class ScreenDimensions : MonoBehaviour
     {
         get
         {
-            return HalfSize;
+            return HeightHalf;
+        }
+    }
+
+    public static float Height
+    {
+        get
+        {
+            return HeightHalf * 2;
         }
     }
 }
