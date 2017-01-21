@@ -21,7 +21,7 @@ public class SpeedManager : MonoBehaviour
         
         if (GetCurrentSpeed() > DuckManager.main.terminalVelocity) {
 
-            SetCurrentSpeed( terminalVelocity );
+            SetCurrentSpeed( DuckManager.main.terminalVelocity );
 
         }
     
