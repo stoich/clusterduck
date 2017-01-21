@@ -12,23 +12,11 @@ public class ObstacleGenerator : MonoBehaviour
     public float speedMin = 1;
 
     public GameObject obstacle;
-    private float screenRangeMin;
-    private float screenRangeMax;
     private Vector2 createProximityCheckySize = new Vector2(1.2f, 1.2f);
-
 
     // Use this for initialization
     void Start()
     {
-        var screenHeight = 2f * Camera.main.orthographicSize;
-        //screenWidth = screenHeight * Camera.main.aspect;
-
-        // screenRangeMax = screenWidth / 2;
-        // screenRangeMin = -screenWidth / 2;
-
-        screenRangeMax = screenHeight / 2;
-        screenRangeMin = -screenHeight / 2;
-
         cooldown = 0;
     }
 
@@ -39,13 +27,13 @@ public class ObstacleGenerator : MonoBehaviour
 
         if (cooldown <= 0)
         {
-            CreateSphere();
+            CreateObstacle();
             cooldown = cooldown_const;
         }
 
     }
 
-    void CreateSphere()
+    void CreateObstacle()
     {
         var newSphere = (GameObject)Instantiate(obstacle, new Vector3(0, 0, -1000), new Quaternion());
 
@@ -53,7 +41,7 @@ public class ObstacleGenerator : MonoBehaviour
 
         newSphere.GetComponent<Rigidbody2D>().AddForce(Vector2.left, ForceMode2D.Impulse);
 
-        var nonOverlappingPosition = GetNonOverlappingRandomPosition(screenRangeMin, screenRangeMax);
+        var nonOverlappingPosition = GetNonOverlappingRandomPosition(ScreenDimensions.LowerEdgeFromCenter, ScreenDimensions.UpperEdgeFromCenter);
 
         if (nonOverlappingPosition != null)
         {
