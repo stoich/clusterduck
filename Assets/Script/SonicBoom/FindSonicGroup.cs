@@ -22,6 +22,9 @@ public class FindSonicGroup : MonoBehaviour
         //  {
         //  print("closes duck is to " + gameObject.name + " is " + GetClosestDuck().name);
 
+        if (DuckManager.main.duckList.Count <= 1) {
+            return;
+        }
 
         var closest = GetClosestDuck();
         var closePos = (Vector2)closest.transform.position;
@@ -51,16 +54,17 @@ public class FindSonicGroup : MonoBehaviour
 
     private GameObject GetClosestDuck()
     {
-        var currentDuck = gameObject;
-        List<GameObject> listWithoutMyDUck = new List<GameObject>(DuckManager.main.duckList);
 
-        if (!listWithoutMyDUck.Remove(currentDuck))
+        var currentDuck = gameObject;
+        List<GameObject> listWithoutMyDuck = new List<GameObject>(DuckManager.main.duckList);
+
+        if (!listWithoutMyDuck.Remove(currentDuck))
             throw new System.Exception("WTF; current Duck not in list!??!?");
 
-        var closestDuck = listWithoutMyDUck[0];
-        listWithoutMyDUck.Remove(closestDuck);
+        var closestDuck = listWithoutMyDuck[0];
+        listWithoutMyDuck.Remove(closestDuck);
 
-        foreach (GameObject d in listWithoutMyDUck)
+        foreach (GameObject d in listWithoutMyDuck)
         {
             var distOld = Vector2.Distance(currentDuck.transform.position, closestDuck.transform.position);
             var distNew = Vector2.Distance(currentDuck.transform.position, d.transform.position);
