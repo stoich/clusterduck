@@ -46,7 +46,7 @@ public class SonicBoomHelper : MonoBehaviour
     private void Update()
     {
 
-        if (duckList.Count < 1)
+        if (duckList.Count < 3)
         {
             FindSonicGroup.boomsList.Remove(gameObject);
             Destroy(gameObject);
