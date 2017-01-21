@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class VisualSonicBoomCue : MonoBehaviour
 {
+    public SonicBoom sonicBoom;
     private SpriteRenderer icon;
     private bool readyToBoom = false;
     private string sonicBoomObjectName = "Sonic Boom";
@@ -30,6 +31,13 @@ public class VisualSonicBoomCue : MonoBehaviour
         }
     }
 
+    void OnMouseDown()
+    {
+        print("click");
+        if (readyToBoom)
+            sonicBoom.Blow();
+    }
+
     internal void Show()
     {
         icon.enabled = true;
@@ -41,6 +49,4 @@ public class VisualSonicBoomCue : MonoBehaviour
         icon.enabled = false;
         readyToBoom = false;
     }
-
-
 }

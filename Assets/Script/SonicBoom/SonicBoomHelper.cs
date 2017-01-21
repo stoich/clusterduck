@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using UnityEngine;
+using UnityEngine;  
 
 public class SonicBoomHelper : MonoBehaviour
 {
-
-    public float SonicBoomProximityTreshold;
-    public DuckManager dManager;
+    public float proximityTreshold;
     public SonicBoom sonicBoom;
     public VisualSonicBoomCue visualBoom;
 
@@ -16,7 +14,7 @@ public class SonicBoomHelper : MonoBehaviour
     {
         foreach (var p in points)
         {
-            if (Vector2.Distance(CurrentCentroid, p) > SonicBoomProximityTreshold)
+            if (Vector2.Distance(CurrentCentroid, p) > proximityTreshold)
                 return false;
         }
 
@@ -25,13 +23,22 @@ public class SonicBoomHelper : MonoBehaviour
 
     private void Update()
     {
-        var points = dManager.duckList.Select(d => (Vector2)d.transform.position).ToArray();
-        currentCentroid = SonicBoomHelper.FindCentroid(points);
+
+        currentCentroid = SonicBoomHelper.FindCentroid(DuckPoints);
         transform.position = CurrentCentroid;
 
-        if (IsBoomProximity(points))
+        if (IsBoomProximity(DuckPoints))
             visualBoom.Show();
+        else
+            visualBoom.Hide();
+    }
 
+    public static Vector2[] DuckPoints
+    {
+        get
+        {
+            return DuckManager.main.duckList.Select(d => (Vector2)d.transform.position).ToArray();
+        }
     }
 
     private static Vector2 FindCentroid(Vector2[] points)
