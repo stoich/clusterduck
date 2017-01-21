@@ -50,8 +50,6 @@ public class DuckManager : MonoBehaviour
         {
 
             AddDuck(startingPointInMiddle + offest * incr);
-
-
             AddDuck(startingPointInMiddle + offest * -incr);
 
             currentDuckCount -= 2;
@@ -69,6 +67,7 @@ public class DuckManager : MonoBehaviour
         var d = (GameObject)Instantiate(duckPrefab, position, new Quaternion());
         d.transform.parent = transform;
         duckList.Add(d);
+        d.name += duckList.IndexOf(d).ToString();
         d.GetComponent<ObstacleHandler>().managerReference = this;
 
         ScoreManager.main.UpdateDuckCount();

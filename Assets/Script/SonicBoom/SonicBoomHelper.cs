@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using UnityEngine;  
+using UnityEngine;
 
 public class SonicBoomHelper : MonoBehaviour
 {
-    public float proximityTreshold;
+    public static float proximityTreshold = 3;
     public SonicBoom sonicBoom;
     public VisualSonicBoomCue visualBoom;
+    public List<GameObject> duckList;
 
     public bool IsBoomProximity(Vector2[] points)
     {
@@ -23,25 +25,30 @@ public class SonicBoomHelper : MonoBehaviour
 
     private void Update()
     {
-
         currentCentroid = SonicBoomHelper.FindCentroid(DuckPoints);
         transform.position = CurrentCentroid;
 
         if (IsBoomProximity(DuckPoints))
             visualBoom.Show();
         else
+        {
             visualBoom.Hide();
+            Destroy(gameObject);
+        }
+
     }
 
-    public static Vector2[] DuckPoints
+    public Vector2[] DuckPoints
     {
         get
         {
-            return DuckManager.main.duckList.Select(d => (Vector2)d.transform.position).ToArray();
+            if (duckList == null)
+                throw new Exception("WTF duck!!!!");
+            return duckList.Select(d => (Vector2)d.transform.position).ToArray();
         }
     }
 
-    private static Vector2 FindCentroid(Vector2[] points)
+    public static Vector2 FindCentroid(Vector2[] points)
     {
         float sumOfX = 0;
         float sumOfY = 0;
