@@ -7,6 +7,7 @@ public class Control : MonoBehaviour
 
     Rigidbody2D body;
     public float speed = 5f;
+    private bool swipingCurrentDuck = false;
 
     // Use this for initialization
     void Start()
@@ -17,13 +18,22 @@ public class Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Swipe();
+        //If this is not the duck you clicked on - ignore the swipe...
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (IsClickOnCurrentDuck())
+                swipingCurrentDuck = true;
+        }
+
+        if (swipingCurrentDuck)
+            Swipe();
 
         if (currentSwipe != Vector2.zero)
         {
             body.velocity = Vector2.zero;
             body.AddForce(currentSwipe * speed, ForceMode2D.Impulse);
             currentSwipe = Vector2.zero;
+            swipingCurrentDuck = false;
         }
 
     }
@@ -34,9 +44,9 @@ public class Control : MonoBehaviour
 
     public Vector2 Swipe()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
-            //save began touch 2d point
             firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
 
@@ -50,29 +60,18 @@ public class Control : MonoBehaviour
 
             //normalize the 2d vector
             currentSwipe = currentSwipe / 50;
-
-            //    //swipe upwards
-            //    if (currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
-            //    {
-            //        Debug.Log("up swipe");
-            //    }
-            //    //swipe down
-            //    if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
-            //    {
-            //        Debug.Log("down swipe");
-            //    }
-            //    //swipe left
-            //    if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-            //    {
-            //        Debug.Log("left swipe");
-            //    }
-            //    //swipe right
-            //    if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-            //    {
-            //        Debug.Log("right swipe");
-            //    }
         }
 
         return currentSwipe;
+    }
+
+    private bool IsClickOnCurrentDuck()
+    {
+        var mouseTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mouseTarget, Vector2.zero, 500);
+        if (hit)
+            return hit.transform.gameObject == gameObject;
+        else
+            return false;
     }
 }
