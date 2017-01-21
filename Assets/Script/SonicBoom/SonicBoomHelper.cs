@@ -10,7 +10,27 @@ public class SonicBoomHelper : MonoBehaviour
     public static float proximityTreshold = 3;
     public SonicBoom sonicBoom;
     public VisualSonicBoomCue visualBoom;
-    public List<GameObject> duckList;
+
+    private List<GameObject> dl = new List<GameObject>();
+    public List<GameObject> duckList
+    {
+        get
+        {
+            var l = new List<GameObject>();
+            foreach (var d in dl)
+            {
+                if (d != null)
+                    l.Add(d);
+            }
+
+            return l;
+        }
+        set
+        {
+            dl = value;
+        }
+    }
+
 
     public bool IsBoomProximity(Vector2[] points)
     {
@@ -25,6 +45,14 @@ public class SonicBoomHelper : MonoBehaviour
 
     private void Update()
     {
+
+        if (duckList.Count < 1)
+        {
+            FindSonicGroup.boomsList.Remove(gameObject);
+            Destroy(gameObject);
+            return;
+        }
+
         currentCentroid = SonicBoomHelper.FindCentroid(DuckPoints);
         transform.position = currentCentroid;
 
@@ -43,10 +71,18 @@ public class SonicBoomHelper : MonoBehaviour
     {
         get
         {
-            if (duckList == null)
+            var l = new List<GameObject>();
+            foreach (var d in duckList)
+            {
+                if (d != null)
+                    l.Add(d);
+            }
+
+            if (duckList == null || duckList.Count < 1)
                 throw new Exception("WTF duck!!!!");
 
-            return duckList.Select(d => (Vector2)d.transform.position).ToArray();
+
+            return l.Select(d => (Vector2)d.transform.position).ToArray();
         }
     }
 
@@ -78,4 +114,10 @@ public class SonicBoomHelper : MonoBehaviour
             currentCentroid = value;
         }
     }
+
+    // private void RemoveDeadDucksFromList()
+    // {
+    //  
+    // }
+
 }

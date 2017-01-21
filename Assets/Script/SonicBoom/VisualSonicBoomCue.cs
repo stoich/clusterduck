@@ -29,7 +29,7 @@ public class VisualSonicBoomCue : MonoBehaviour
 
     void OnMouseDown()
     {
-        print("click");
+
         if (readyToBoom)
             sonicBoom.Blow();
     }
