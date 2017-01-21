@@ -31,6 +31,10 @@ public class ObstacleHandler : MonoBehaviour
                     obstacle.OnBreak();
 
                 ScoreManager.main.AddPoints(100);
+
+                //Restore speed
+
+                speedManager.Reflect();
             }
             else
             {
