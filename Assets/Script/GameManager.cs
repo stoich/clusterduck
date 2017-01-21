@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager main; 
 	public Animator startGameAnimator, gameOverAnimator;
 	public GameObject obstacleGenerator;
-	bool started;
 
 	bool gameStarted = false;
 	bool gameEnded = false;
@@ -34,9 +36,9 @@ public class GameManager : MonoBehaviour {
 
 	public void TryStartGame() {
 
-		if (started) return;
+		if (gameStarted) return;
 
-		started = true;
+		gameStarted = true;
 		obstacleGenerator.SetActive(true);
 		startGameAnimator.SetBool("started", true);
 
@@ -44,20 +46,16 @@ public class GameManager : MonoBehaviour {
 
 	public void TryGameOver() {
 
+
 		if (!gameStarted || gameEnded) return;
 
+		print(gameStarted + ", " + gameEnded);
 		gameEnded = true;
 		obstacleGenerator.SetActive(false);
 		gameOverAnimator.enabled = true;
 		gameOverAnimator.SetTrigger("isGameOver");
 
 		StartCoroutine(GameOverClickIgnore());
-
-	}
-
-	public void ConfirmGameOver() {
-
-
 
 	}
 
@@ -71,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
 		gameOverAnimator.SetBool("started", true);
 		yield return new WaitForSeconds(1f);
-		//restart the game
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 	}
 

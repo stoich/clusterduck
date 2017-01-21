@@ -78,6 +78,12 @@ public class DuckManager : MonoBehaviour
     {
         duckList.Remove(duck);
         Destroy(duck);
+
+        ScoreManager.main.LoseDuck();
+
+        if (duckList.Count <= 0) {
+            GameManager.main.TryGameOver();
+        }
     }
 
     void OnDestroy()

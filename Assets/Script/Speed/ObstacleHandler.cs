@@ -29,6 +29,8 @@ public class ObstacleHandler : MonoBehaviour
                 Destroy(collision.gameObject);
                 if (obstacle != null)
                     obstacle.OnBreak();
+
+                ScoreManager.main.AddPoints(100);
             }
             else
             {

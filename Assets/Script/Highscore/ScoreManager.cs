@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	float Multiplier() {
-		return 1f + (duckCount - 1) / 10f;
+		return Mathf.Max(1f, 1f + (duckCount - 1) / 10f);
 	}
 
 	public void AddPoints(float points) {
