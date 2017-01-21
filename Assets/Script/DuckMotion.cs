@@ -29,7 +29,6 @@ public class DuckMotion : MonoBehaviour {
 		bob *= bobDisplacement;
 
 		objToRotate.transform.position = objToRotate.transform.parent.position + new Vector3(0f, bob, 0f);
-		print(objToRotate.transform.position);
 
 	}
 }
