@@ -5,7 +5,6 @@ using UnityEngine;
 public class SonicBoom : MonoBehaviour
 {
 
-    public float boomForce = 10;
 
     // Use this for initialization
     void Start()
@@ -24,7 +23,7 @@ public class SonicBoom : MonoBehaviour
         foreach (var p in GetComponent<SonicBoomHelper>().duckList)
         {
             var boomDirection = p.transform.position - transform.position;
-            p.GetComponent<Rigidbody2D>().AddForce(boomDirection.normalized * boomForce, ForceMode2D.Impulse);
+            p.GetComponent<Rigidbody2D>().AddForce(boomDirection.normalized * DuckManager.main.terminalVelocity, ForceMode2D.Impulse);
         }
     }
 }
