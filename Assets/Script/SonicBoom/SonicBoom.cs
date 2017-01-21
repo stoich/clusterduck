@@ -24,6 +24,7 @@ public class SonicBoom : MonoBehaviour
         {
             var boomDirection = p.transform.position - transform.position;
             p.GetComponent<Rigidbody2D>().AddForce(boomDirection.normalized * DuckManager.main.terminalVelocity, ForceMode2D.Impulse);
+            p.GetComponent<SpeedManager>().SetOnFire(true);
         }
     }
 }

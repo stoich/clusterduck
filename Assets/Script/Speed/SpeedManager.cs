@@ -8,16 +8,26 @@ public class SpeedManager : MonoBehaviour
     private Rigidbody2D b;
     public Vector3 cachedVelocity, currentVelocity;
 
+    public float normalDrag = 1f, fireDrag = 0.5f;
+
+    bool onFire;
+
 
     void Start()
     {
         b = GetComponent<Rigidbody2D>();
+        SetOnFire(false);
     }
 
     void FixedUpdate()
     {
         cachedVelocity = currentVelocity;
         currentVelocity = b.velocity;
+
+        if (onFire && !IsSonic()) {
+            SetOnFire(false);
+        }
+
         LimitSpeed();
     }
 
@@ -47,10 +57,21 @@ public class SpeedManager : MonoBehaviour
         return GetSpeed(true) > DuckManager.main.sonicTreshold;
     }
 
-    public void Reflect () {
+    public void SetOnFire(bool fire) {
 
-        b.velocity = cachedVelocity / -4f;
+        if (fire) {
+            onFire = true;
+            b.drag = fireDrag;
+        } else {
+            onFire = false;
+            b.drag = normalDrag;
+        }
+    }
 
+    public void Reflect (Vector3 other) {
+
+        print(cachedVelocity.magnitude);
+        b.velocity = (other - transform.position).normalized * (cachedVelocity.magnitude  / (onFire ? 1f : -2.5f));
     
     }
 

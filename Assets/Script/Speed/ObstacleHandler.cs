@@ -34,7 +34,7 @@ public class ObstacleHandler : MonoBehaviour
 
                 //Restore speed
 
-                speedManager.Reflect();
+                speedManager.Reflect(collision.gameObject.transform.position);
             }
             else
             {
