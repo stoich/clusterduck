@@ -8,6 +8,8 @@ public class DuckMotion : MonoBehaviour {
 	public GameObject objToRotate, objToBob;
 	public float maxRotation = 30f, bobFrequency = 1f, bobDisplacement = 0.05f, sideBobAmount = 10f;
 	public SpeedManager speedManager;
+	public ParticleSystem trail;
+	bool particlesOn;
 
 	float bobStage = 0f;
 
@@ -23,6 +25,10 @@ public class DuckMotion : MonoBehaviour {
 		}
 
 		Bob(sideBob);
+
+		if (trail != null) {
+			CheckParticles();
+		}
 
 	}
 
@@ -60,5 +66,23 @@ public class DuckMotion : MonoBehaviour {
 		
 		}
 	
+	}
+
+	void CheckParticles() {
+		//TODO: Use a better way of checking this
+		if (particlesOn != bodyWithSpeed.velocity.magnitude > speedManager.sonicTreshold) {
+			
+			if (particlesOn) {
+			
+				particlesOn = false;
+				trail.Stop();
+
+			} else {
+
+				particlesOn = true;
+				trail.Play();
+
+			}
+		}
 	}
 }
