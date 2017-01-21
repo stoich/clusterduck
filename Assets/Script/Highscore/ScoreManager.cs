@@ -22,6 +22,10 @@ public class ScoreManager : MonoBehaviour {
 	
 	}
 
+	void Start() {
+		UpdateAll();
+	}
+
 	void OnDestroy() {
 
 		if (main == this) {
@@ -32,22 +36,13 @@ public class ScoreManager : MonoBehaviour {
 
 	public void LoseDuck() {
 		
-		mainScore += currentScore * Multiplier(duckCount);
+		mainScore += currentScore * Multiplier();
 		currentScore = 0f;
-		UpdateDuckCount();
-		UpdateCurrentScoreBox();
-		UpdateMainScoreBox();
+		UpdateAll();
 
 	}
 
-	public void UpdateDuckCount() {
-
-		duckCount = DuckManager.main.duckList.Count;
-		duckCountBox.text = "x " + duckCount.ToString("n1");
-
-	}
-
-	float Multiplier(int duckCount) {
+	float Multiplier() {
 		return 1f + (duckCount - 1) / 10f;
 	}
 
@@ -56,12 +51,27 @@ public class ScoreManager : MonoBehaviour {
 		UpdateCurrentScoreBox();
 	}
 
+	public void UpdateDuckCount() {
+
+		duckCount = DuckManager.main.duckList.Count;
+		duckCountBox.text = Multiplier().ToString("n1");
+
+	}
+
 	void UpdateCurrentScoreBox() {
 		currentScoreBox.text = currentScore.ToString("n0");
 	}
 
 	void UpdateMainScoreBox() {
 		mainScoreBox.text = mainScore.ToString("n0");
+	}
+
+	void UpdateAll() {
+
+		UpdateDuckCount();
+		UpdateCurrentScoreBox();
+		UpdateMainScoreBox();
+	
 	}
 
 
