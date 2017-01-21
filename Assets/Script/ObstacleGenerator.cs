@@ -11,8 +11,11 @@ public class ObstacleGenerator : MonoBehaviour
     public float speedMax = 2;
     public float speedMin = 1;
 
-    public GameObject obstacle;
+    public GameObject obstacle, duckCrate;
     private Vector2 createProximityCheckySize = new Vector2(1.2f, 1.2f);
+
+    [Range(0f, 1f)]
+    public float duckCrateChance = 0.05f;
 
     // Use this for initialization
     void Start()
@@ -35,7 +38,10 @@ public class ObstacleGenerator : MonoBehaviour
 
     void CreateObstacle()
     {
-        var newSphere = (GameObject)Instantiate(obstacle, new Vector3(0, 0, -1000), new Quaternion());
+
+        GameObject obstacleType = (Random.Range(0f, 1f) < duckCrateChance) ? obstacle : duckCrate;
+
+        var newSphere = (GameObject)Instantiate(obstacleType, new Vector3(0, 0, -1000), new Quaternion());
 
         var randomSpeed = Random.Range(speedMin, speedMax);
 
