@@ -8,6 +8,7 @@ public class DuckManager : MonoBehaviour
     public int startingDuckCount;
     public GameObject duckPrefab;
     public List<GameObject> duckList;
+    public static DuckManager main;
 
     void Start()
     {
@@ -16,6 +17,11 @@ public class DuckManager : MonoBehaviour
 
         duckList = new List<GameObject>();
         PlaceInitially();
+
+        if (main != null) {
+            Destroy(gameObject);
+        }
+        main = this;
     }
 
     private void PlaceInitially()
@@ -57,4 +63,11 @@ public class DuckManager : MonoBehaviour
         d.transform.parent = transform;
         duckList.Add(d);
     }
+
+    void OnDestroy() {
+        if (main == this) {
+            main = null;
+        }
+    }
+    
 }
