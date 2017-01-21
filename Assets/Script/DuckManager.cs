@@ -10,6 +10,15 @@ public class DuckManager : MonoBehaviour
     public List<GameObject> duckList;
     public static DuckManager main;
 
+    void Awake() {
+
+        if (main != null) {
+            Destroy(gameObject);
+        }
+        main = this;
+        
+    }
+
     void Start()
     {
         if (!IsOdd(startingDuckCount))
@@ -18,10 +27,6 @@ public class DuckManager : MonoBehaviour
         duckList = new List<GameObject>();
         PlaceInitially();
 
-        if (main != null) {
-            Destroy(gameObject);
-        }
-        main = this;
     }
 
     private void PlaceInitially()

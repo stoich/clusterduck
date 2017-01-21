@@ -10,7 +10,7 @@ public class DuckSpriteManager : MonoBehaviour {
 	[Range(0f, 1f)]
 	public float specialChance = 0.3f;
 
-	void Start () {
+	void Awake () {
 		if (main != null) {
 			Destroy(gameObject);
 		}
