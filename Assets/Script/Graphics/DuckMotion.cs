@@ -10,8 +10,13 @@ public class DuckMotion : MonoBehaviour {
 	public SpeedManager speedManager;
 	public ParticleSystem trail;
 	bool particlesOn;
+	float bobSpeed;
 
 	float bobStage = 0f;
+
+	void Start() {
+		bobSpeed = Random.Range(0.7f, 1.3f);
+	}
 
 	void Update() {
 
@@ -48,7 +53,7 @@ public class DuckMotion : MonoBehaviour {
 
 	void Bob(bool sideBob) {
 
-		bobStage = (bobStage + Time.deltaTime) % (bobFrequency * 2f);
+		bobStage = (bobStage + Time.deltaTime * bobSpeed) % (bobFrequency * 2f);
 		float bob = bobStage / bobFrequency;
 		bob *= 2f * Mathf.PI;
 		bob = Mathf.Sin(bob);
