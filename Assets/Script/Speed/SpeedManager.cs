@@ -54,7 +54,7 @@ public class SpeedManager : MonoBehaviour
 
     public bool IsSonic()
     {
-        return GetSpeed(true) > DuckManager.main.sonicTreshold;
+        return GetSpeed(false) > DuckManager.main.sonicTreshold;
     }
 
     public void SetOnFire(bool fire) {
@@ -71,7 +71,7 @@ public class SpeedManager : MonoBehaviour
     public void Reflect (Vector3 other) {
 
         print(cachedVelocity.magnitude);
-        b.velocity = (other - transform.position).normalized * (cachedVelocity.magnitude  / (onFire ? 1f : -2.5f));
+        b.velocity = (other - transform.position).normalized * (cachedVelocity.magnitude  / (onFire ? 1f : -1));
     
     }
 

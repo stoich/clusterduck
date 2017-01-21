@@ -6,7 +6,10 @@ public class Obstacle : MonoBehaviour {
 
 	public bool duckCrate;
 
-	public void OnBreak() {
+	public void OnBreak(float otherVelocity) {
+
+		ShockWave.Blast(transform.position.Vec2(), 2f, otherVelocity / 4f);
+
 		if (duckCrate) {
 			DuckManager.main.AddDuck(transform.position.Vec2());
 		}
