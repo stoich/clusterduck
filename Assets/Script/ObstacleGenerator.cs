@@ -39,7 +39,7 @@ public class ObstacleGenerator : MonoBehaviour
     void CreateObstacle()
     {
 
-        GameObject obstacleType = (Random.Range(0f, 1f) < duckCrateChance) ? obstacle : duckCrate;
+        GameObject obstacleType = (Random.Range(0f, 1f) > duckCrateChance) ? obstacle : duckCrate;
 
         var newSphere = (GameObject)Instantiate(obstacleType, new Vector3(0, 0, -1000), new Quaternion());
 

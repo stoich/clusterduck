@@ -60,6 +60,8 @@ public class Control : MonoBehaviour
 
             //normalize the 2d vector
             currentSwipe = currentSwipe / 50;
+
+            GameManager.main.TryStartGame();
         }
 
         return currentSwipe;
