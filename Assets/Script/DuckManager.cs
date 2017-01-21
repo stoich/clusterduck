@@ -57,11 +57,12 @@ public class DuckManager : MonoBehaviour
         return value % 2 != 0;
     }
 
-    public void AddDuck(Vector2 position)
-    {
+    public void AddDuck(Vector2 position) {
         var d = (GameObject)Instantiate(duckPrefab, position, new Quaternion());
         d.transform.parent = transform;
         duckList.Add(d);
+
+        ScoreManager.main.UpdateDuckCount();
     }
 
     void OnDestroy() {
@@ -69,5 +70,5 @@ public class DuckManager : MonoBehaviour
             main = null;
         }
     }
-    
+
 }
