@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Smash : MonoBehaviour
+public class ObstacleHandler : MonoBehaviour
 {
     // public float thresholdSpeed;
     private Rigidbody2D body;
     private SpeedManager speedManager;
+    public DuckManager managerReference;
 
     // Use this for initialization
     void Start()
@@ -18,17 +19,24 @@ public class Smash : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.tag == "Obstacle") {
+        if (collision.gameObject.tag == "Obstacle")
+        {
 
             Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
 
-            if (speedManager.IsSonic()) {
+            if (speedManager.IsSonic())
+            {
                 Destroy(collision.gameObject);
                 if (obstacle != null)
                     obstacle.OnBreak();
             }
-            //else
-                //Destroy the duck
+            else
+            {
+                managerReference.OnDuckDeath(gameObject);
+                Destroy(gameObject);
+
+            }
+
         }
     }
 }

@@ -10,13 +10,15 @@ public class DuckManager : MonoBehaviour
     public List<GameObject> duckList;
     public static DuckManager main;
 
-    void Awake() {
+    void Awake()
+    {
 
-        if (main != null) {
+        if (main != null)
+        {
             Destroy(gameObject);
         }
         main = this;
-        
+
     }
 
     void Start()
@@ -62,16 +64,26 @@ public class DuckManager : MonoBehaviour
         return value % 2 != 0;
     }
 
-    public void AddDuck(Vector2 position) {
+    public void AddDuck(Vector2 position)
+    {
         var d = (GameObject)Instantiate(duckPrefab, position, new Quaternion());
         d.transform.parent = transform;
         duckList.Add(d);
+        d.GetComponent<ObstacleHandler>().managerReference = this;
 
         ScoreManager.main.UpdateDuckCount();
     }
 
-    void OnDestroy() {
-        if (main == this) {
+    public void OnDuckDeath(GameObject duck)
+    {
+        duckList.Remove(duck);
+        Destroy(duck);
+    }
+
+    void OnDestroy()
+    {
+        if (main == this)
+        {
             main = null;
         }
     }
