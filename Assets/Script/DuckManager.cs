@@ -7,7 +7,7 @@ public class DuckManager : MonoBehaviour
 {
     public int startingDuckCount;
     public GameObject duckPrefab;
-    private List<GameObject> duckList;
+    public List<GameObject> duckList;
 
     void Start()
     {
