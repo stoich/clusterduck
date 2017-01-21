@@ -26,13 +26,14 @@ public class SonicBoomHelper : MonoBehaviour
     private void Update()
     {
         currentCentroid = SonicBoomHelper.FindCentroid(DuckPoints);
-        transform.position = CurrentCentroid;
+        transform.position = currentCentroid;
 
         if (IsBoomProximity(DuckPoints))
             visualBoom.Show();
         else
         {
             visualBoom.Hide();
+            FindSonicGroup.boomsList.Remove(gameObject);
             Destroy(gameObject);
         }
 
@@ -44,6 +45,7 @@ public class SonicBoomHelper : MonoBehaviour
         {
             if (duckList == null)
                 throw new Exception("WTF duck!!!!");
+
             return duckList.Select(d => (Vector2)d.transform.position).ToArray();
         }
     }

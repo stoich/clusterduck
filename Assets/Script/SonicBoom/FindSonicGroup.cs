@@ -5,6 +5,8 @@ using UnityEngine;
 public class FindSonicGroup : MonoBehaviour
 {
     public GameObject boomPrefab;
+    public static List<GameObject> boomsList = new List<GameObject>();
+    private int minGroupSize = 2;
 
     // Use this for initialization
     void Start()
@@ -16,39 +18,35 @@ public class FindSonicGroup : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
+        //  if (Input.GetMouseButtonDown(1))
+        //  {
+        //  print("closes duck is to " + gameObject.name + " is " + GetClosestDuck().name);
+
+
+        var closest = GetClosestDuck();
+        var closePos = (Vector2)closest.transform.position;
+        var thisDuckPos = (Vector2)gameObject.transform.position;
+
+        if (Vector2.Distance(closePos, thisDuckPos) < SonicBoomHelper.proximityTreshold)
         {
-            //  print("closes duck is to " + gameObject.name + " is " + GetClosestDuck().name);
+            //   print("Treshold proximity!");
 
+            var midPoint = SonicBoomHelper.FindCentroid(new[] { closePos, thisDuckPos });
+            var inRangeList = FindDucksInRange(midPoint, SonicBoomHelper.proximityTreshold);
 
-            var closest = GetClosestDuck();
-            var closePos = (Vector2)closest.transform.position;
-            var thisDuckPos = (Vector2)gameObject.transform.position;
-
-            if (Vector2.Distance(closePos, thisDuckPos) < SonicBoomHelper.proximityTreshold)
+            if (inRangeList.Count > minGroupSize)
             {
-                print("Treshold proximity!");
-
-                var midPoint = SonicBoomHelper.FindCentroid(new[] { closePos, thisDuckPos });
-                var inRangeList = FindDucksInRange(midPoint, SonicBoomHelper.proximityTreshold);
-
-                if (inRangeList.Count > 2)
+                if (IsFarAwayFromOtherBooms(midPoint))
                 {
-
-                    print("-------group:------------");
-                    foreach (var d in inRangeList)
-                    {
-                        print(d.name);
-                    }
-                    print("---END group:------------");
-
                     var boom = Instantiate(boomPrefab, midPoint, new Quaternion());
-
+                    boom.GetComponent<SonicBoomHelper>().duckList = inRangeList;
+                    boomsList.Add(boom);
                 }
-
-
             }
+
+
         }
+
     }
 
     private GameObject GetClosestDuck()
@@ -84,5 +82,19 @@ public class FindSonicGroup : MonoBehaviour
         }
 
         return list;
+    }
+
+    private bool IsFarAwayFromOtherBooms(Vector2 boomCenter)
+    {
+        if (boomsList.Count < 1)
+            return true;
+
+        foreach (var p in boomsList)
+        {
+            if (Vector2.Distance(boomCenter, p.transform.position) < SonicBoomHelper.proximityTreshold)
+                return false;
+        }
+
+        return true;
     }
 }
