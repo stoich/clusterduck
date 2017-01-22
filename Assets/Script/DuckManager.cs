@@ -71,6 +71,8 @@ public class DuckManager : MonoBehaviour
         duckList.Add(d);
         d.name += duckList.IndexOf(d).ToString();
         d.GetComponent<ObstacleHandler>().managerReference = this;
+
+        DuckSpriteManager.SetSpecialChance(duckList.Count);
     }
 
     public void OnDuckDeath(GameObject duck)

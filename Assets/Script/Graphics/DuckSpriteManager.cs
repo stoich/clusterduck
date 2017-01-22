@@ -8,7 +8,7 @@ public class DuckSpriteManager : MonoBehaviour {
 	public Sprite[] body, outfits;
 
 	[Range(0f, 1f)]
-	public float specialChance = 0.3f;
+	public float specialChance = 0.05f;
 
 	void Awake () {
 		if (main != null) {
@@ -40,6 +40,10 @@ public class DuckSpriteManager : MonoBehaviour {
 		}
 
 		return array[0];
+	}
+
+	public void SetSpecialChance(int ducks) {
+		specialChance = 1f - Mathf.Pow(0.9f, ducks / 2f);
 	}
 
 }

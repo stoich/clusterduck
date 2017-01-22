@@ -14,19 +14,30 @@ public class Store : MonoBehaviour
     bool open;
 
     public static int currentDuckPrice = 0;
+    int level = 0;
 
     private int[] duckInflation = new[] { 200, 500, 2000, 3000, 5000, 10000, 20000, 30000, 50000 };
 
     // Use this for initialization
     void Start()
     {
-        currentDuckPrice = duckInflation[0];
+        currentDuckPrice = DuckInflation(0);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    int DuckInflation(int level) {
+        int magnitude = Mathf.FloorToInt(level / 3 + 0.1f);
+        int multiplier = 1;
+        switch(level - magnitude * 3) {
+            case 1: multiplier = 2; break;
+            case 2: multiplier = 5; break;
+        }
+        return Mathf.RoundToInt(Mathf.Pow(10f, magnitude + 2) * multiplier);
     }
 
     public void ShowStore()
@@ -47,17 +58,9 @@ public class Store : MonoBehaviour
         {
             ScoreManager.main.AddPoints(-currentDuckPrice);
 
-            var current = Array.IndexOf(duckInflation, currentDuckPrice);
-            print(current);
-            var newPriceIndex = current + 1;
+            level++;
 
-            int newPrice;
-            if (newPriceIndex < duckInflation.Length)
-                newPrice = duckInflation[newPriceIndex];
-            else
-                newPrice = duckInflation[duckInflation.Length - 1];
-
-            print(newPrice);
+            int newPrice = DuckInflation(level);
             currentDuckPrice = newPrice;
 
             createGenerator.CreateObstacle(true);
