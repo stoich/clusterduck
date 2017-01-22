@@ -23,7 +23,6 @@ public class ObstacleHandler : MonoBehaviour
 
             Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
 
-            print("Duck: " + speedManager.GetSpeed() + "- " + speedManager.IsSonic() + " , Box: " + collision.gameObject.transform.GetComponent<Rigidbody2D>().velocity.magnitude);
             if (speedManager.IsSonic())
             {
                 if (obstacle != null)
@@ -32,18 +31,7 @@ public class ObstacleHandler : MonoBehaviour
                 ScoreManager.main.AddPoints(100);
                 Destroy(collision.gameObject);
 
-                print("Killed box");
-
-                //Restore speed
-
                 speedManager.Reflect(collision.gameObject.transform.position);
-            }
-            else if (collision.gameObject.transform.GetComponent<Rigidbody2D>().velocity.magnitude > 4f)
-            {
-                print("Killed duck");
-                managerReference.OnDuckDeath(gameObject);
-                Destroy(gameObject);
-
             }
 
         }
