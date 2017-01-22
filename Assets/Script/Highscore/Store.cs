@@ -42,7 +42,7 @@ public class Store : MonoBehaviour
     {
         if (ScoreManager.main.mainScore > currentDuckPrice)
         {
-            ScoreManager.main.mainScore -= currentDuckPrice;
+            ScoreManager.main.AddPoints(-currentDuckPrice);
 
             var current = Array.IndexOf(duckInflation, currentDuckPrice);
             print(current);
