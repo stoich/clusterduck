@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour {
 
 	public GameObject scoreTextPrefab;
 
-	float mainScore = 0f;
+	public float mainScore = 0f;
 
 	public Text mainScoreBox;
 
@@ -31,6 +31,13 @@ public class ScoreManager : MonoBehaviour {
 	void Start() {
 		UpdateMainScoreBox();
 	}
+
+    private void Update()
+    {
+        UpdateMainScoreBox();
+    }
+
+ 
 
 	void OnDestroy() {
 
@@ -61,7 +68,5 @@ public class ScoreManager : MonoBehaviour {
 		mainScoreBox.text = moneyChar + mainScore.ToString("n0");
 		bumpAnimator.SetTrigger("bump");
 	}
-
-
 
 }

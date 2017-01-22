@@ -18,16 +18,6 @@ public class Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //If this is not the duck you clicked on - ignore the swipe...
-        //   if (Input.GetMouseButtonDown(0))
-        //   {
-        //       if (IsClickOnCurrentDuck())
-        //           swipingCurrentDuck = true;
-        //   }
-
-      //  if (swipingCurrentDuck)
-        //    Swipe();
-
         if (currentSwipe != Vector2.zero)
         {
             body.velocity = Vector2.zero;

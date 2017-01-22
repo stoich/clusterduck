@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ObstacleGenerator : MonoBehaviour
 {
-
     public float cooldown_const;
     private float cooldown = 3;
 
-    public float speedMax = 2;
+    public float speedMax = 2; 
     public float speedMin = 1;
 
     public GameObject obstacle, duckCrate;
