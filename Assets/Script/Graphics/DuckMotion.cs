@@ -14,8 +14,14 @@ public class DuckMotion : MonoBehaviour {
 
 	float bobStage = 0f;
 
+	public float minScale = 0.7f, maxScale = 0.9f;
+	float scale;
+	bool facingLeft;
+
 	void Start() {
 		bobSpeed = Random.Range(0.7f, 1.3f);
+		scale = Random.Range(minScale, maxScale);
+		transform.localScale = new Vector3(scale, scale, scale);
 	}
 
 	void Update() {
@@ -27,6 +33,15 @@ public class DuckMotion : MonoBehaviour {
 			sideBob = false;
 			Tilt();
 		
+		}
+
+		if (bodyWithSpeed.velocity.x < 0f && !facingLeft) {
+			facingLeft = true;
+			transform.localScale = new Vector3(-scale, scale, scale);
+		}
+		if (bodyWithSpeed.velocity.x > 0f && facingLeft) {
+			facingLeft = false;
+			transform.localScale = new Vector3(scale, scale, scale);
 		}
 
 		Bob(sideBob);
