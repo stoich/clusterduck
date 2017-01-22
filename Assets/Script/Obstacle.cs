@@ -23,6 +23,7 @@ public class Obstacle : MonoBehaviour {
 
 		if (duckCrate) {
 			DuckManager.main.AddDuck(transform.position.Vec2());
+            ObstacleGenerator.main.ScaleCooldown(DuckManager.main.duckList.Count);
 		}
 	}
 }

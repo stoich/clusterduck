@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class ObstacleGenerator : MonoBehaviour
 {
+
+    public static ObstacleGenerator main;
+
     public float cooldown_const;
+    private float scaled_cooldown;
     private float cooldown = 3;
 
     public float speedMax = 2; 
@@ -13,10 +17,23 @@ public class ObstacleGenerator : MonoBehaviour
     public GameObject obstacle, duckCrate;
     private Vector2 createProximityCheckySize = new Vector2(1.2f, 1.2f);
 
+    void Awake () {
+        if (main != null) {
+            Destroy(gameObject);
+        }
+        main = this;
+    }
+
+    void OnDestroy() {
+        if (main == this) {
+            main = null;
+        }
+    }
     // Use this for initialization
     void Start()
     {
         cooldown = 0;
+        ScaleCooldown(1);
     }
 
     // Update is called once per frame
@@ -27,9 +44,13 @@ public class ObstacleGenerator : MonoBehaviour
         if (cooldown <= 0)
         {
             CreateObstacle();
-            cooldown = cooldown_const;
+            cooldown = scaled_cooldown * Random.Range(0.75f,1.33f);
         }
 
+    }
+
+    public void ScaleCooldown(int ducks) {
+        scaled_cooldown = cooldown_const / (1 + ducks * 0.25f);
     }
 
     public void CreateObstacle(bool isDuckCrate = false)

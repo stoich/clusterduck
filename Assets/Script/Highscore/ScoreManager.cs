@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour {
 
 	public Text mainScoreBox;
 
-	public float minBoxScore, maxBoxScore, multiplier = 1f;
+	public float minBoxScore, maxBoxScore;
 
 	public Animator bumpAnimator;
 
@@ -44,6 +44,10 @@ public class ScoreManager : MonoBehaviour {
 
 	}
 
+	float Multiplier() {
+		return Mathf.Pow(1.35f, DuckManager.main.duckList.Count);
+	}
+
 	public void AddPoints(float points) {
 		mainScore += points;
 		UpdateMainScoreBox();
@@ -51,7 +55,7 @@ public class ScoreManager : MonoBehaviour {
 
 	public void BreakBox(Vector3 position) {
 
-		int earnedPoints = Mathf.RoundToInt(Random.Range(minBoxScore, maxBoxScore) * multiplier);
+		int earnedPoints = Mathf.RoundToInt(Random.Range(minBoxScore, maxBoxScore) * Multiplier());
 
 		AddPoints(earnedPoints);
 

@@ -54,7 +54,7 @@ public class Store : MonoBehaviour
 
     public void BuyDuck()
     {
-        if (ScoreManager.main.mainScore > currentDuckPrice)
+        if (ScoreManager.main.mainScore >= currentDuckPrice)
         {
             ScoreManager.main.AddPoints(-currentDuckPrice);
 
