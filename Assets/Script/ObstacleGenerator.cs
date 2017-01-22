@@ -11,21 +11,25 @@ public class ObstacleGenerator : MonoBehaviour
     private float scaled_cooldown;
     private float cooldown = 3;
 
-    public float speedMax = 2; 
+    public float speedMax = 2;
     public float speedMin = 1;
 
     public GameObject obstacle, duckCrate;
     private Vector2 createProximityCheckySize = new Vector2(1.2f, 1.2f);
 
-    void Awake () {
-        if (main != null) {
+    void Awake()
+    {
+        if (main != null)
+        {
             Destroy(gameObject);
         }
         main = this;
     }
 
-    void OnDestroy() {
-        if (main == this) {
+    void OnDestroy()
+    {
+        if (main == this)
+        {
             main = null;
         }
     }
@@ -44,19 +48,21 @@ public class ObstacleGenerator : MonoBehaviour
         if (cooldown <= 0)
         {
             CreateObstacle();
-            cooldown = scaled_cooldown * Random.Range(0.75f,1.33f);
+            cooldown = scaled_cooldown * Random.Range(0.75f, 1.33f);
         }
 
     }
 
-    public void ScaleCooldown(int ducks) {
+    public void ScaleCooldown(int ducks)
+    {
         scaled_cooldown = cooldown_const / (1 + ducks * 0.25f);
     }
 
     public void CreateObstacle(bool isDuckCrate = false)
     {
+        SoundManager.PlaySound(1);
 
-        GameObject obstacleType = (isDuckCrate) ?  duckCrate : obstacle;
+        GameObject obstacleType = (isDuckCrate) ? duckCrate : obstacle;
 
         var newSphere = (GameObject)Instantiate(obstacleType, new Vector3(0, 0, -1000), new Quaternion());
 

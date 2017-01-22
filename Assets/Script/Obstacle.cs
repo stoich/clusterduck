@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour {
+public class Obstacle : MonoBehaviour
+{
 
-	public bool duckCrate;
-	
-	void Start() {
+    public bool duckCrate;
 
-		ParticleManager.main.SmokeBurst(transform.position);
+    void Start()
+    {
 
-	}
+        ParticleManager.main.SmokeBurst(transform.position);
 
-	public void OnBreak(float otherVelocity) {
+    }
 
-		ParticleManager.main.BreakCrate(transform.position);
-		SoundManager.main.SmashCrate();
+    public void OnBreak(float otherVelocity)
+    {
 
-		ShockWave.Blast(transform.position.Vec2(), 2f, otherVelocity / 4f);
+        ParticleManager.main.BreakCrate(transform.position);
+        SoundManager.main.SmashCrate();
 
-		ScoreManager.main.BreakBox(transform.position);
+        ShockWave.Blast(transform.position.Vec2(), 2f, otherVelocity / 4f);
 
-		if (duckCrate) {
-			DuckManager.main.AddDuck(transform.position.Vec2());
+        ScoreManager.main.BreakBox(transform.position);
+
+        if (duckCrate)
+        {
+            SoundManager.PlaySound(0);
+            DuckManager.main.AddDuck(transform.position.Vec2());
             ObstacleGenerator.main.ScaleCooldown(DuckManager.main.duckList.Count);
-		}
-	}
+        }
+    }
 }

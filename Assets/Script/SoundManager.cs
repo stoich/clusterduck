@@ -1,34 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class SoundManager : MonoBehaviour {
+using System.Collections.Specialized;
 
-	public static SoundManager main;
+public class SoundManager : MonoBehaviour
+{
+    public static SoundManager main;
+    public AudioClip[] gamesounds;
 
-	public AudioSource crateAudio;
+    public AudioSource crateAudio;
 
-	void Awake () {
-		
-		if (main != null) {
-			Destroy(gameObject);
-		}
-		main = this;
-	
-	}
+    void Awake()
+    {
 
-	void OnDestroy() {
+        if (main != null)
+        {
+            Destroy(gameObject);
+        }
+        main = this;
 
-		if (main == this) {
-			main = null;
-		}
+    }
 
-	}
+    void OnDestroy()
+    {
 
-	public void SmashCrate() {
+        if (main == this)
+        {
+            main = null;
+        }
 
-		crateAudio.pitch = Random.Range(0.8f,1.2f);
-		crateAudio.Play();
+    }
 
-	}
+    public void SmashCrate()
+    {
+
+        crateAudio.pitch = Random.Range(0.8f, 1.2f);
+        crateAudio.Play();
+    }
+
+    public static void PlaySound(int index)
+    {
+        var o = GameObject.Find("SoundManager");
+        var m = o.GetComponent<SoundManager>();
+        var a = o.GetComponent<AudioSource>();
+        a.PlayOneShot(m.gamesounds[index]);
+    }
 
 }
