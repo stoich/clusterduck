@@ -15,6 +15,10 @@ public class ScoreManager : MonoBehaviour {
 
 	public float minBoxScore, maxBoxScore, multiplier = 1f;
 
+	public Animator bumpAnimator;
+
+	string moneyChar = "$";
+
 	void Awake () {
 		
 		if (main != null) {
@@ -49,12 +53,13 @@ public class ScoreManager : MonoBehaviour {
 
 		GameObject go = (GameObject)Instantiate(scoreTextPrefab, new Vector3(0, 0, -1000), new Quaternion());
 		CrateText text = go.GetComponent<CrateText>();
-		text.Setup(position, "$" + earnedPoints.ToString("n0"));
+		text.Setup(position, moneyChar + earnedPoints.ToString("n0"));
 		
 	}
 
 	void UpdateMainScoreBox() {
-		mainScoreBox.text = mainScore.ToString("n0");
+		mainScoreBox.text = moneyChar + mainScore.ToString("n0");
+		bumpAnimator.SetTrigger("bump");
 	}
 
 
