@@ -84,7 +84,7 @@ public class ObstacleGenerator : MonoBehaviour
             attempts--;
         }
 
-        print(generationPoint);
+        //print(generationPoint);
         return generationPoint;
     }
 

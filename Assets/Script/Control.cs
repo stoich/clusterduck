@@ -19,14 +19,14 @@ public class Control : MonoBehaviour
     void Update()
     {
         //If this is not the duck you clicked on - ignore the swipe...
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (IsClickOnCurrentDuck())
-                swipingCurrentDuck = true;
-        }
+        //   if (Input.GetMouseButtonDown(0))
+        //   {
+        //       if (IsClickOnCurrentDuck())
+        //           swipingCurrentDuck = true;
+        //   }
 
-        if (swipingCurrentDuck)
-            Swipe();
+      //  if (swipingCurrentDuck)
+        //    Swipe();
 
         if (currentSwipe != Vector2.zero)
         {
@@ -41,6 +41,31 @@ public class Control : MonoBehaviour
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe = Vector2.zero;
+
+    private void OnMouseDown()
+    {
+
+        firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+    }
+
+    private void OnMouseUp()
+    {
+
+        //save ended touch 2d point
+        secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        //create vector from the two points
+        currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+
+        //normalize the 2d vector
+        currentSwipe = currentSwipe / 50;
+
+        if (currentSwipe.magnitude > DuckManager.main.terminalVelocity)
+        {
+            currentSwipe = currentSwipe.normalized * DuckManager.main.terminalVelocity;
+        }
+    }
 
     public Vector2 Swipe()
     {
@@ -59,9 +84,10 @@ public class Control : MonoBehaviour
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 
             //normalize the 2d vector
-            currentSwipe = currentSwipe / 50; 
-            
-            if (currentSwipe.magnitude > DuckManager.main.terminalVelocity) {
+            currentSwipe = currentSwipe / 50;
+
+            if (currentSwipe.magnitude > DuckManager.main.terminalVelocity)
+            {
                 currentSwipe = currentSwipe.normalized * DuckManager.main.terminalVelocity;
             }
         }
