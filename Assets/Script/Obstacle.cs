@@ -9,6 +9,7 @@ public class Obstacle : MonoBehaviour {
 	public void OnBreak(float otherVelocity) {
 
 		ParticleManager.main.BreakCrate(transform.position);
+		SoundManager.main.SmashCrate();
 
 		ShockWave.Blast(transform.position.Vec2(), 2f, otherVelocity / 4f);
 
