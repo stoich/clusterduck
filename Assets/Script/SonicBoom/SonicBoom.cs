@@ -24,7 +24,7 @@ public class SonicBoom : MonoBehaviour
         try
         {
             var audioManager = GameObject.Find("SoundManager").GetComponent<AudioSource>();
-            audioManager.PlayOneShot(boomSound, 0.8f);
+            audioManager.PlayOneShot(boomSound, 0.7f);
         }
         catch (Exception e)
         {
