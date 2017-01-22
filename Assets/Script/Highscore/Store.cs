@@ -9,6 +9,8 @@ public class Store : MonoBehaviour
     public GameObject openStoreButton;
     public GameObject storePanel;
     public ObstacleGenerator createGenerator;
+    public Animator storeAnimator;
+    bool open;
 
     public static int currentDuckPrice = 0;
 
@@ -28,14 +30,14 @@ public class Store : MonoBehaviour
 
     public void ShowStore()
     {
-        storePanel.SetActive(true);
-        openStoreButton.SetActive(false);
+        if (!open);
+        storeAnimator.SetBool("open", open = true);
     }
 
     public void HideStore()
     {
-        storePanel.SetActive(false);
-        openStoreButton.SetActive(true);
+        if (open)
+        storeAnimator.SetBool("open", open = false);
     }
 
     public void BuyDuck()
