@@ -43,7 +43,7 @@ public class DuckSpriteManager : MonoBehaviour {
 	}
 
 	public void SetSpecialChance(int ducks) {
-		specialChance = 1f - Mathf.Pow(0.9f, ducks / 2f);
+		specialChance = 1f - Mathf.Pow(0.9f, ducks / 1.5f);
 	}
 
 }

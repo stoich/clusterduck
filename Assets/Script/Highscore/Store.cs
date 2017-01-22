@@ -31,11 +31,12 @@ public class Store : MonoBehaviour
     }
 
     int DuckInflation(int level) {
-        int magnitude = Mathf.FloorToInt(level / 3 + 0.1f);
-        int multiplier = 1;
-        switch(level - magnitude * 3) {
-            case 1: multiplier = 2; break;
-            case 2: multiplier = 5; break;
+        int magnitude = Mathf.FloorToInt(level / 4 + 0.1f);
+        float multiplier = 1;
+        switch(level - magnitude * 4) {
+            case 1: multiplier = 2f; break;
+            case 2: multiplier = 3.5f; break;
+            case 3: multiplier = 6f; break;
         }
         return Mathf.RoundToInt(Mathf.Pow(10f, magnitude + 2) * multiplier);
     }
