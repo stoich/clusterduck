@@ -27,8 +27,6 @@ public class ObstacleHandler : MonoBehaviour
             {
                 if (obstacle != null)
                     obstacle.OnBreak(speedManager.GetSpeed());
-
-                ScoreManager.main.AddPoints(100);
                 Destroy(collision.gameObject);
 
                 speedManager.Reflect(collision.gameObject.transform.position);
