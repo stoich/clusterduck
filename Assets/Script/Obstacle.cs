@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour {
 
 		ShockWave.Blast(transform.position.Vec2(), 2f, otherVelocity / 4f);
 
-		ScoreManager.main.BreakBox();
+		ScoreManager.main.BreakBox(transform.position);
 
 		if (duckCrate) {
 			DuckManager.main.AddDuck(transform.position.Vec2());

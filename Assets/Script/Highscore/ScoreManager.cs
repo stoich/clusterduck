@@ -7,6 +7,8 @@ public class ScoreManager : MonoBehaviour {
 
 	public static ScoreManager main;
 
+	public GameObject scoreTextPrefab;
+
 	float mainScore = 0f;
 
 	public Text mainScoreBox;
@@ -39,8 +41,16 @@ public class ScoreManager : MonoBehaviour {
 		UpdateMainScoreBox();
 	}
 
-	public void BreakBox() {
-		AddPoints(Mathf.RoundToInt(Random.Range(minBoxScore, maxBoxScore) * multiplier));
+	public void BreakBox(Vector3 position) {
+
+		int earnedPoints = Mathf.RoundToInt(Random.Range(minBoxScore, maxBoxScore) * multiplier);
+
+		AddPoints(earnedPoints);
+
+		GameObject go = (GameObject)Instantiate(scoreTextPrefab, new Vector3(0, 0, -1000), new Quaternion());
+		CrateText text = go.GetComponent<CrateText>();
+		text.Setup(position, "$" + earnedPoints.ToString("n0"));
+		
 	}
 
 	void UpdateMainScoreBox() {
