@@ -32,10 +32,7 @@ public class ScoreManager : MonoBehaviour {
 		UpdateMainScoreBox();
 	}
 
-    private void Update()
-    {
-        UpdateMainScoreBox();
-    }
+
 
  
 
