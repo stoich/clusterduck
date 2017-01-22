@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SonicBoom : MonoBehaviour
 {
-
+    public AudioClip boomSound;
 
     // Use this for initialization
     void Start()
@@ -20,6 +21,16 @@ public class SonicBoom : MonoBehaviour
 
     public void Blow()
     {
+        try
+        {
+            var audioManager = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+            audioManager.PlayOneShot(boomSound, 0.8f);
+        }
+        catch (Exception e)
+        {
+            print("COULD NOT PLAY BOOM SOUND!!!! Check references...");
+        }
+
         foreach (var p in GetComponent<SonicBoomHelper>().duckList)
         {
             var boomDirection = p.transform.position - transform.position;
