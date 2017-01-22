@@ -8,10 +8,10 @@ public class ScoreManager : MonoBehaviour {
 	public static ScoreManager main;
 
 	float mainScore = 0f;
-	float currentScore = 0f;
-	int duckCount = 1;
 
-	public Text mainScoreBox, currentScoreBox, duckCountBox;
+	public Text mainScoreBox;
+
+	public float minBoxScore, maxBoxScore, multiplier = 1f;
 
 	void Awake () {
 		
@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	void Start() {
-		UpdateAll();
+		UpdateMainScoreBox();
 	}
 
 	void OnDestroy() {
@@ -34,44 +34,17 @@ public class ScoreManager : MonoBehaviour {
 
 	}
 
-	public void LoseDuck() {
-		
-		mainScore += currentScore * Multiplier();
-		currentScore = 0f;
-		UpdateAll();
-
-	}
-
-	float Multiplier() {
-		return Mathf.Max(1f, 1f + (duckCount - 1) / 10f);
-	}
-
 	public void AddPoints(float points) {
-		currentScore += points;
-		UpdateCurrentScoreBox();
+		mainScore += points;
+		UpdateMainScoreBox();
 	}
 
-	public void UpdateDuckCount() {
-
-		duckCount = DuckManager.main.duckList.Count;
-		duckCountBox.text = Multiplier().ToString("n1");
-
-	}
-
-	void UpdateCurrentScoreBox() {
-		currentScoreBox.text = currentScore.ToString("n0");
+	public void BreakBox() {
+		AddPoints(Mathf.RoundToInt(Random.Range(minBoxScore, maxBoxScore) * multiplier));
 	}
 
 	void UpdateMainScoreBox() {
 		mainScoreBox.text = mainScore.ToString("n0");
-	}
-
-	void UpdateAll() {
-
-		UpdateDuckCount();
-		UpdateCurrentScoreBox();
-		UpdateMainScoreBox();
-	
 	}
 
 

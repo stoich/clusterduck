@@ -71,16 +71,12 @@ public class DuckManager : MonoBehaviour
         duckList.Add(d);
         d.name += duckList.IndexOf(d).ToString();
         d.GetComponent<ObstacleHandler>().managerReference = this;
-
-        ScoreManager.main.UpdateDuckCount();
     }
 
     public void OnDuckDeath(GameObject duck)
     {
         duckList.Remove(duck);
         Destroy(duck);
-
-        ScoreManager.main.LoseDuck();
 
         if (duckList.Count <= 0) {
             GameManager.main.TryGameOver();
