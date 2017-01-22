@@ -9,7 +9,6 @@ public class Obstacle : MonoBehaviour {
 	void Start() {
 
 		ParticleManager.main.SmokeBurst(transform.position);
-		print("GO!");
 
 	}
 
