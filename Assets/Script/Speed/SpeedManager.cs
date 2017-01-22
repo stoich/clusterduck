@@ -70,8 +70,7 @@ public class SpeedManager : MonoBehaviour
 
     public void Reflect (Vector3 other) {
 
-        print(cachedVelocity.magnitude);
-        b.velocity = (other - transform.position).normalized * (cachedVelocity.magnitude  / (onFire ? 1f : -1));
+        b.velocity = (other - transform.position).normalized * (cachedVelocity.magnitude  / (onFire ? 1f : -1f));
     
     }
 

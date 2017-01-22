@@ -64,8 +64,6 @@ public class Control : MonoBehaviour
             if (currentSwipe.magnitude > DuckManager.main.terminalVelocity) {
                 currentSwipe = currentSwipe.normalized * DuckManager.main.terminalVelocity;
             }
-
-            GameManager.main.TryStartGame();
         }
 
         return currentSwipe;

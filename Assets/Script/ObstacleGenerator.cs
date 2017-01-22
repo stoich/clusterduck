@@ -14,9 +14,6 @@ public class ObstacleGenerator : MonoBehaviour
     public GameObject obstacle, duckCrate;
     private Vector2 createProximityCheckySize = new Vector2(1.2f, 1.2f);
 
-    [Range(0f, 1f)]
-    public float duckCrateChance = 0.05f;
-
     // Use this for initialization
     void Start()
     {
@@ -36,18 +33,21 @@ public class ObstacleGenerator : MonoBehaviour
 
     }
 
-    void CreateObstacle()
+    public void CreateObstacle(bool isDuckCrate = false)
     {
 
-        GameObject obstacleType = (Random.Range(0f, 1f) > duckCrateChance) ? obstacle : duckCrate;
+        GameObject obstacleType = (isDuckCrate) ?  duckCrate : obstacle;
 
         var newSphere = (GameObject)Instantiate(obstacleType, new Vector3(0, 0, -1000), new Quaternion());
 
         var randomSpeed = Random.Range(speedMin, speedMax);
 
-        newSphere.GetComponent<Rigidbody2D>().AddForce(Vector2.left, ForceMode2D.Impulse);
+        Vector2 travelVector = Vector2.left.Rotate(Random.Range(0f, 1f));
+        travelVector *= randomSpeed;
 
-        var nonOverlappingPosition = GetNonOverlappingRandomPosition(ScreenDimensions.LowerEdgeFromCenter, ScreenDimensions.UpperEdgeFromCenter);
+        newSphere.GetComponent<Rigidbody2D>().AddForce(travelVector, ForceMode2D.Impulse);
+
+        var nonOverlappingPosition = GetNonOverlappingRandomPosition();
 
         if (nonOverlappingPosition != null)
         {
@@ -57,16 +57,22 @@ public class ObstacleGenerator : MonoBehaviour
             Destroy(newSphere);
     }
 
-    private Vector3? GetNonOverlappingRandomPosition(float screenRangeMin, float screenRangeMax)
+    private Vector3? GetNonOverlappingRandomPosition()
     {
+        float screenRangeMinX = -Level.screenSizeX; //Fix
+        float screenRangeMaxX = Level.screenSizeX; //Fix
+        float screenRangeMinY = ScreenDimensions.LowerEdgeFromCenter;
+        float screenRangeMaxY = ScreenDimensions.UpperEdgeFromCenter;
+
         int attempts = 10;
         Vector3? generationPoint = null;
 
         while (attempts > 1)
         {
-            var randomY = Random.Range(screenRangeMin, screenRangeMax);
+            var randomX = Random.Range(screenRangeMinX, screenRangeMaxX);
+            var randomY = Random.Range(screenRangeMinY, screenRangeMaxY);
 
-            var testPoint = new Vector3(transform.position.x, randomY, 0);
+            var testPoint = new Vector3(randomX, randomY, 0);
 
             Collider2D colls = Physics2D.OverlapBox(testPoint, new Vector2(1.2f, 1.2f), 0, LayerMask.GetMask("Obstacle"));
 
@@ -78,6 +84,7 @@ public class ObstacleGenerator : MonoBehaviour
             attempts--;
         }
 
+        print(generationPoint);
         return generationPoint;
     }
 
