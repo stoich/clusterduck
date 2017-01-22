@@ -5,6 +5,13 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour {
 
 	public bool duckCrate;
+	
+	void Start() {
+
+		ParticleManager.main.SmokeBurst(transform.position);
+		print("GO!");
+
+	}
 
 	public void OnBreak(float otherVelocity) {
 
