@@ -47,7 +47,7 @@ public class ObstacleGenerator : MonoBehaviour
 
         newSphere.GetComponent<Rigidbody2D>().AddForce(Vector2.left, ForceMode2D.Impulse);
 
-        var nonOverlappingPosition = GetNonOverlappingRandomPosition(ScreenDimensions.LowerEdgeFromCenter, ScreenDimensions.UpperEdgeFromCenter);
+        var nonOverlappingPosition = GetNonOverlappingRandomPosition();
 
         if (nonOverlappingPosition != null)
         {
@@ -57,16 +57,22 @@ public class ObstacleGenerator : MonoBehaviour
             Destroy(newSphere);
     }
 
-    private Vector3? GetNonOverlappingRandomPosition(float screenRangeMin, float screenRangeMax)
+    private Vector3? GetNonOverlappingRandomPosition()
     {
+        float screenRangeMinX = -Level.screenSizeX; //Fix
+        float screenRangeMaxX = Level.screenSizeX; //Fix
+        float screenRangeMinY = ScreenDimensions.LowerEdgeFromCenter;
+        float screenRangeMaxY = ScreenDimensions.UpperEdgeFromCenter;
+
         int attempts = 10;
         Vector3? generationPoint = null;
 
         while (attempts > 1)
         {
-            var randomY = Random.Range(screenRangeMin, screenRangeMax);
+            var randomX = Random.Range(screenRangeMinX, screenRangeMaxX);
+            var randomY = Random.Range(screenRangeMinY, screenRangeMaxY);
 
-            var testPoint = new Vector3(transform.position.x, randomY, 0);
+            var testPoint = new Vector3(randomX, randomY, 0);
 
             Collider2D colls = Physics2D.OverlapBox(testPoint, new Vector2(1.2f, 1.2f), 0, LayerMask.GetMask("Obstacle"));
 
@@ -78,6 +84,7 @@ public class ObstacleGenerator : MonoBehaviour
             attempts--;
         }
 
+        print(generationPoint);
         return generationPoint;
     }
 

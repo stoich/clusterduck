@@ -9,6 +9,8 @@ public class Level : MonoBehaviour
     public float zPosition = 0f;
     private Vector2 screenSize;
 
+    public static float screenSizeX;
+
     void Start()
     {//Create a Dictionary to contain all our Objects/Transforms
         System.Collections.Generic.Dictionary<string, Transform> colliders = new System.Collections.Generic.Dictionary<string, Transform>();
@@ -43,5 +45,7 @@ public class Level : MonoBehaviour
         colliders["Left"].position = new Vector3(cameraPos.x - screenSize.x - (colliders["Left"].localScale.x * 0.5f), cameraPos.y, zPosition);
         colliders["Top"].position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (colliders["Top"].localScale.y * 0.5f), zPosition);
         colliders["Bottom"].position = new Vector3(cameraPos.x, cameraPos.y - screenSize.y - (colliders["Bottom"].localScale.y * 0.5f), zPosition);
+    
+        screenSizeX = screenSize.x;
     }
 }

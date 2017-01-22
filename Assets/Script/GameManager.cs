@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour {
 		main = this;
 	}
 
+	void Start() {
+		StartCoroutine(HideTitleSoon());
+	}
+
 	void Update() {
 		if (gameEnded && readyToRestart && Input.GetMouseButtonDown(0)) {
 			StartCoroutine(Restart());
@@ -57,6 +61,11 @@ public class GameManager : MonoBehaviour {
 
 		StartCoroutine(GameOverClickIgnore());
 
+	}
+
+	IEnumerator HideTitleSoon() {
+		yield return new WaitForSeconds(3f);
+		TryStartGame();
 	}
 
 	IEnumerator GameOverClickIgnore() {
