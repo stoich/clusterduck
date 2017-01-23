@@ -25,9 +25,6 @@ public class DuckManager : MonoBehaviour
 
     public void PlaceDucks()
     {
-        if (!IsOdd(startingDuckCount))
-            throw new Exception("PLEASE USE ODD NUMBER OF STARTING DUCKS FOR NOW!");
-
         duckList = new List<GameObject>();
         PlaceInitially();
 
@@ -36,26 +33,14 @@ public class DuckManager : MonoBehaviour
     private void PlaceInitially()
     {
         var x = transform.position.x;
-        var spacing = ScreenDimensions.Height / startingDuckCount;
+        var spacing = ScreenDimensions.Height / (startingDuckCount + 1);
 
-        var startingPointInMiddle = new Vector2(x, 0);
+        var startingPointInMiddle = new Vector2(x, ScreenDimensions.Height / -2f);
         var offest = new Vector2(0, spacing);
 
-        var currentDuckCount = startingDuckCount;
+        for (int i = 0; i < startingDuckCount; i++) {
 
-        AddDuck(startingPointInMiddle);
-        currentDuckCount--;
-
-        var incr = 1;
-
-        while (currentDuckCount > 0)
-        {
-
-            AddDuck(startingPointInMiddle + offest * incr);
-            AddDuck(startingPointInMiddle + offest * -incr);
-
-            currentDuckCount -= 2;
-            incr++;
+            AddDuck(startingPointInMiddle + offest * (i + 1));
         }
     }
 
