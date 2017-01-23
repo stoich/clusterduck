@@ -29,6 +29,7 @@ public class Obstacle : MonoBehaviour
             SoundManager.PlaySound(0);
             DuckManager.main.AddDuck(transform.position.Vec2());
             ObstacleGenerator.main.ScaleCooldown(DuckManager.main.duckList.Count);
+            SaveManager.main.Save();
         }
     }
 }

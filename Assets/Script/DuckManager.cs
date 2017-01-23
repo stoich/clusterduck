@@ -23,7 +23,7 @@ public class DuckManager : MonoBehaviour
 
     }
 
-    void Start()
+    public void PlaceDucks()
     {
         if (!IsOdd(startingDuckCount))
             throw new Exception("PLEASE USE ODD NUMBER OF STARTING DUCKS FOR NOW!");

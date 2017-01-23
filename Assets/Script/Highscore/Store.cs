@@ -21,7 +21,7 @@ public class Store : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        currentDuckPrice = DuckInflation(0);
+        currentDuckPrice = DuckInflation(DuckManager.main.startingDuckCount);
     }
 
     // Update is called once per frame
